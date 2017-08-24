@@ -1,0 +1,20 @@
+Banditen ska ha ett visst antal olika vinster.
+Tre slots
+Spelaren ska ha sin egen "plånbok" som har ett startvärde samt kommer denna att ändras vid vinst eller förlust.
+Börja med konsolvärden.
+
+Jag kommer börja med simpelt inlogg där jag bara har en simpel array med inlogg som sedan kan utökas till en databas.
+
+Man ska lägga "bets" för hur mycket man vill spela med, Man ska kunna välja 5, 10, 20 eller 50 cr för att öka sin instättning i spelet.
+
+KLASSER:
+
+Person.
+Denna klass ska vara den personen som är inloggad. Denna klass ska populeras med information sparad i en array och senare en databas.
+
+Slotmachine.
+Denna klass ska innehålla all typ av kod för att slotmaskinen ska fungera. Med den inloggade användaren ska slotmaskinen uppdatera användarens 
+cr värde vid vinst eller förlust. Maskinen ska även ändra vinsten utifrån vilken kombination användaren vinner med. 
+EX. Användaren satsar 100 och vinner en specifik värdefull kombo och tredubblar sin insättning i vinst.
+Maskinen ska ha ett flertal kombinationer med olika vinster samt en kombination som ska vara den mest sällsynta som är jackpotten.
+Jackpotten ska fyllas på med ett visst antal för varje gång någon spelar.

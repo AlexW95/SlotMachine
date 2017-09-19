@@ -6,15 +6,16 @@
 package slotmachine;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 public class SlotMachine extends Application {
 
     //Komponenter
-    private Button insertFive, insertTen, insertFifty, insertHundred, spinButton;
+    private Button playButton, insertFive, insertTen, insertFifty, insertHundred, spinButton;
     private TextField leftSlot, middleSlot, rightSlot;
     private Label insertAmountLabel, userNameLabel, userCreditLabel, totalWinningLabel, jackpotLabel;
     private int insertAmount = 0;
@@ -51,6 +52,7 @@ public class SlotMachine extends Application {
 
         initializeUiItems();
         setStage();
+        setFunctions();
 
         primaryStage.setTitle("Slot Machine");
         primaryStage.setScene(scene);
@@ -58,6 +60,9 @@ public class SlotMachine extends Application {
     }
 
     public void initializeUiItems() {
+        playButton = new Button();
+        playButton.setText("Play");
+        playButton.setMinWidth(80);
         insertFive = new Button();
         insertFive.setMinWidth(80);
         insertFive.setText("Insert 5");
@@ -87,6 +92,7 @@ public class SlotMachine extends Application {
         banditContainer.getChildren().add(slotContainer);
         banditContainer.getChildren().add(insertButtonContainer);
         banditContainer.getChildren().add(betLabelContainer);
+        banditContainer.getChildren().add(playButton);
 
         slotContainer.setPadding(new Insets(5, 0, 5, 0));
         slotContainer.getChildren().add(leftSlot);
@@ -115,7 +121,22 @@ public class SlotMachine extends Application {
     }
 
     private void setFunctions() {
+        // Här ska jag lägga in alla mina funktioner för komponenter.
+        //initiera event för alla komponenter
+        betButtonFunc(insertFive, 5);
+        betButtonFunc(insertTen, 10);
+        betButtonFunc(insertFifty, 50);
+        betButtonFunc(insertHundred, 100);
+    }
 
+    private void betButtonFunc(Button betButton, int amount) {
+        betButton.setOnAction((new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                insertAmount += amount;
+                insertAmountLabel.setText("insert amount: " + insertAmount);
+            }
+        }));
     }
 
     /**
@@ -124,5 +145,4 @@ public class SlotMachine extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 }

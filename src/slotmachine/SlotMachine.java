@@ -114,6 +114,10 @@ public class SlotMachine extends Application {
         root.setPadding(new Insets(50));
     }
 
+    private void setFunctions() {
+
+    }
+
     /**
      * @param args the command line arguments
      */

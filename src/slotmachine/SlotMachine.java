@@ -30,7 +30,7 @@ public class SlotMachine extends Application {
     private TextField leftSlot, middleSlot, rightSlot;
     private Label insertAmountLabel, userNameLabel, userCreditLabel, totalWinningLabel, jackpotLabel;
     private int insertAmount = 0;
-
+    private WinCalculator winCalculator;
     private BorderPane root;
     private VBox banditContainer;
     private VBox userInfoContainer;
@@ -40,6 +40,8 @@ public class SlotMachine extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+
+        winCalculator = new WinCalculator();
 
         root = new BorderPane();
         banditContainer = new VBox();
@@ -127,6 +129,7 @@ public class SlotMachine extends Application {
         betButtonFunc(insertTen, 10);
         betButtonFunc(insertFifty, 50);
         betButtonFunc(insertHundred, 100);
+        playButtonFunc(playButton);
     }
 
     private void betButtonFunc(Button betButton, int amount) {
@@ -137,6 +140,23 @@ public class SlotMachine extends Application {
                 insertAmountLabel.setText("insert amount: " + insertAmount);
             }
         }));
+    }
+
+    private void playButtonFunc(Button playButton) {
+        playButton.setOnAction((new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                play();
+            }
+        }));
+    }
+
+    private void play() {
+        leftSlot.setText(winCalculator.slotCalculator());
+        middleSlot.setText(winCalculator.slotCalculator());
+        rightSlot.setText(winCalculator.slotCalculator());
+        winCalculator.winCalculator(insertAmount, leftSlot.getText(), middleSlot.getText(), rightSlot.getText());
+        // Här ska ett kall efter att skicka db info för användarens krediter.
     }
 
     /**

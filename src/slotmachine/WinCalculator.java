@@ -11,13 +11,26 @@ import java.util.Random;
  *
  * @author Alexander
  */
-public class SlotMechanics {
+public class WinCalculator {
 // Denna klass ska innehålla funktioner för hur maskinen ska fungera
 
-    double betAmount, winAmount, win1, win2, win3, win4, win5, win6, win7, win8, jackpot;
+    double betAmount, winAmount;/*, win1, win2, win3, win4, win5, win6, win7, win8, jackpot;*/
+    double win1 = 1,
+            win2 = 1.5,
+            win3 = 2,
+            win4 = 2.5,
+            win5 = 4,
+            win6 = 5,
+            win7 = 8,
+            win8 = 10,
+            jackpot = 5000;
 
-    public SlotMechanics(int betAmount) {
+    public WinCalculator(int betAmount) {
         this.betAmount = betAmount;
+    }
+
+    public WinCalculator() {
+
     }
 
     private void winAmounts() {
@@ -33,7 +46,7 @@ public class SlotMechanics {
         jackpot = 1;//Hämta jackpoten här
     }
 
-    private String slotCalculator() {
+    String slotCalculator() {
         Random random = new Random();
         double randomNumber = random.nextInt(100);
 
@@ -58,7 +71,36 @@ public class SlotMechanics {
         }
     }
 
-    private double winCalculator() {
+    double winCalculator(int betAmount, String leftSlot, String middleSlot, String rightSlot) {
+        switch (leftSlot + middleSlot + rightSlot) {
+            case "111":
+                winAmount = betAmount * win1;
+                break;
+            case "222":
+                winAmount = betAmount * win2;
+                break;
+            case "333":
+                winAmount = betAmount * win3;
+                break;
+            case "444":
+                winAmount = betAmount * win4;
+                break;
+            case "555":
+                winAmount = betAmount * win5;
+                break;
+            case "666":
+                winAmount = betAmount * win6;
+                break;
+            case "777":
+                winAmount = betAmount * win7;
+                break;
+            case "888":
+                winAmount = betAmount * win8;
+                break;
+            case "999":
+                winAmount = betAmount + jackpot;
+                break;
+        }
         return 0.0;
     }
 

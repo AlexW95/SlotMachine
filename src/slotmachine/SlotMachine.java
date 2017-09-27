@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -32,11 +31,8 @@ public class SlotMachine extends Application {
     private int insertAmount = 0;
     private WinCalculator winCalculator;
     private BorderPane root;
-    private VBox banditContainer;
-    private VBox userInfoContainer;
+    private VBox banditContainer, userInfoContainer, betLabelContainer, insertButtonContainer;
     private HBox slotContainer;
-    private VBox betLabelContainer;
-    private VBox insertButtonContainer;
 
     @Override
     public void start(Stage primaryStage) {

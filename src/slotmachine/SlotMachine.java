@@ -159,6 +159,8 @@ public class SlotMachine extends Application {
         // Här ska ett kall efter att skicka db info för användarens krediter.
     }
 
+    //Skapa en metod eller liknande som ändrar utseendet för element i userInfoContainer
+    //Skapa en metod eller liknande för att hämta och skicka info och uppdateringar till databasen.
     /**
      * @param args the command line arguments
      */

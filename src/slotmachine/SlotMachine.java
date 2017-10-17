@@ -5,6 +5,7 @@
  */
 package slotmachine;
 
+import Database.DatabaseCalls;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 public class SlotMachine extends Application {
 
     //Komponenter
-    private Button playButton, insertFive, insertTen, insertFifty, insertHundred, spinButton;
+    private Button playButton, insertFive, insertTen, insertFifty, insertHundred;
     private TextField leftSlot, middleSlot, rightSlot;
     private Label insertAmountLabel, userNameLabel, userCreditLabel, totalWinningLabel, jackpotLabel;
     private int insertAmount = 0;
@@ -33,10 +34,11 @@ public class SlotMachine extends Application {
     private BorderPane root;
     private VBox banditContainer, userInfoContainer, betLabelContainer, insertButtonContainer;
     private HBox slotContainer;
+    private DatabaseCalls databaseCalls;
 
     @Override
     public void start(Stage primaryStage) {
-
+        databaseCalls = new DatabaseCalls();
         winCalculator = new WinCalculator();
 
         root = new BorderPane();
@@ -58,6 +60,7 @@ public class SlotMachine extends Application {
     }
 
     public void initializeUiItems() {
+        //UI for the slotmachine.
         playButton = new Button();
         playButton.setText("Play");
         playButton.setMinWidth(80);
@@ -82,6 +85,15 @@ public class SlotMachine extends Application {
         leftSlot.setMaxWidth(50);
         middleSlot.setMaxWidth(50);
         rightSlot.setMaxWidth(50);
+
+        //UI for the userinfo
+        setUserInfo();
+    }
+
+    private void setUserInfo() {
+        userNameLabel = new Label(databaseCalls.getUserInfo("name"));
+        userCreditLabel = new Label(databaseCalls.getUserInfo("credit"));
+        totalWinningLabel = new Label();
     }
 
     public void setStage() {
@@ -112,6 +124,8 @@ public class SlotMachine extends Application {
         betLabelContainer.getChildren().add(jackpotLabel);
 
         userInfoContainer.setMinSize(200, 600);
+        userInfoContainer.getChildren().add(userNameLabel);
+        userInfoContainer.getChildren().add(userCreditLabel);
 
         root.setLeft(banditContainer);
         root.setRight(userInfoContainer);
@@ -119,8 +133,6 @@ public class SlotMachine extends Application {
     }
 
     private void setFunctions() {
-        // Här ska jag lägga in alla mina funktioner för komponenter.
-        //initiera event för alla komponenter
         betButtonFunc(insertFive, 5);
         betButtonFunc(insertTen, 10);
         betButtonFunc(insertFifty, 50);
@@ -152,14 +164,17 @@ public class SlotMachine extends Application {
         middleSlot.setText(winCalculator.slotCalculator());
         rightSlot.setText(winCalculator.slotCalculator());
         winCalculator.winCalculator(insertAmount, leftSlot.getText(), middleSlot.getText(), rightSlot.getText());
-        // Här ska ett kall efter att skicka db info för användarens krediter.
+        updateUserUI();
     }
 
-    //Skapa en metod eller liknande som ändrar utseendet för element i userInfoContainer
-    //Skapa en metod eller liknande för att hämta och skicka info och uppdateringar till databasen.
-    /**
-     * @param args the command line arguments
-     */
+    //FIXME kom på ett bättre namn
+    private void updateUserUI() {
+        //Denna metod ska uppdatera användarens krediter i databasen.
+        userCreditLabel.setText("Uppdaterade kreidterna");
+        //Alltså när man spelar ska metoden skicka info som tar bort eller lägger till krediter i databasen
+        //Denna metod ska använda sig av databaseCalls.
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
